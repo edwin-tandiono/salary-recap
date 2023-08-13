@@ -1,0 +1,23 @@
+{
+  "name": "salary-recap-node",
+  "version": "1.0.0",
+  "description": "Backend for salary recap project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwin-tandiono/salary-recap.git"
+  },
+  "author": "tandiono98@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwin-tandiono/salary-recap/issues"
+  },
+  "homepage": "https://github.com/edwin-tandiono/salary-recap#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
