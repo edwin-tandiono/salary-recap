@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 
-module.exports = sequelize.define('tax_slip', {
+module.exports = sequelize.define('slip', {
   id: {
     type: DataTypes.UUID,
     allowNull: false,

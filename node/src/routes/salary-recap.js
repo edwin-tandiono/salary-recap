@@ -18,10 +18,10 @@ router.patch(
   require('../handlers/v1/recap/update')
 );
 
-// === Tax Slips ===
+// === Slips ===
 router.get(
-  '/v1/tax-slips',
-  require('../handlers/v1/tax-slip/list')
+  '/v1/slips',
+  require('../handlers/v1/slip/list')
 );
 
 module.exports = router;

@@ -1,11 +1,11 @@
 const Bluebird = require('bluebird');
 
-const taxslip = require('../../../databases/salary-recap-postgres/models/tax-slip');
+const slip = require('../../../databases/salary-recap-postgres/models/slip');
 
 module.exports = (req, res, next) => {
   Bluebird.resolve()
     .then(async () => {
-      const taxSlipList = await taxslip.findAll({
+      const slipList = await slip.findAll({
         attributes: [
           'id',
           'order_num',
@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
         ]
       });
 
-      return res.send(taxSlipList);
+      return res.send(slipList);
     })
     .catch(next);
 };
