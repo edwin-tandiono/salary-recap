@@ -63,4 +63,4 @@ module.exports = sequelize.define('tax_slip', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-});
+}, { timestamps: false, });

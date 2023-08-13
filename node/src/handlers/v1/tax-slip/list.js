@@ -5,7 +5,7 @@ const taxslip = require('../../../databases/salary-recap-postgres/models/tax-sli
 module.exports = (req, res, next) => {
   Bluebird.resolve()
     .then(async () => {
-      const recaps = await taxslip.findAll({
+      const taxSlipList = await taxslip.findAll({
         attributes: [
           'id',
           'order_num',
@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
         ]
       });
 
-      return res.send(recaps);
+      return res.send(taxSlipList);
     })
     .catch(next);
 };

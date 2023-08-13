@@ -11,4 +11,4 @@ module.exports = sequelize.define('recap', {
     type: DataTypes.DATE,
     allowNull: false,
   },
-});
+}, { timestamps: false, });

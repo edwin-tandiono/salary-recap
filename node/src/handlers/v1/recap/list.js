@@ -1,17 +1,15 @@
 const Bluebird = require('bluebird');
 
-// const SalaryRecapPostgres = require('../../../databases/salary-recap-postgres/sequelize');
-
 const recap = require('../../../databases/salary-recap-postgres/models/recap');
 
 module.exports = (req, res, next) => {
   Bluebird.resolve()
     .then(async () => {
-      const recaps = await recap.findAll({
+      const recapList = await recap.findAll({
         attributes: ['id', 'period']
       });
 
-      return res.send(recaps);
+      return res.send(recapList);
     })
     .catch(next);
 };
