@@ -8,7 +8,7 @@ var args = process.argv.slice(2);
 
 const [name, email, password] = args;
 
-const hashedPassword = bcrypt
+const newUserWithHashedPassword = bcrypt
   .genSalt()
   .then(async (salt) => {
     return bcrypt.hash(password, salt);
