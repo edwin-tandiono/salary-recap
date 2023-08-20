@@ -9,6 +9,5 @@ module.exports = new Sequelize(
     host: process.env.SALARY_RECAP_POSTGRESQL_HOST,
     port:  process.env.SALARY_RECAP_POSTGRESQL_PORT,
     dialect: 'postgres',
-    // logging: _.noop,
   },
 );
