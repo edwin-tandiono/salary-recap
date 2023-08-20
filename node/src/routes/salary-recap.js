@@ -1,6 +1,16 @@
 const express = require('express')
 
+const { SIGN_IN_PATH } = require('../constants/auth');
+
 const router = express.Router();
+
+router.use(require('../middlewares/auth'));
+
+// === Auth ===
+router.post(
+  SIGN_IN_PATH,
+  require('../handlers/v1/auth/sign-in')
+);
 
 // === Recaps ===
 router.get(
