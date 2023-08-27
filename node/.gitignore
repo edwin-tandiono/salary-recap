@@ -16,3 +16,6 @@ benchmarks/graphs
 
 # Environment Variables
 .env*
+
+# Credential
+google-service-account.json

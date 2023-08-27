@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/edwin-tandiono/salary-recap#readme",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",

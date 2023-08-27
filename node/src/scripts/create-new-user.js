@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const user = require('../databases/salary-recap-postgres/models/user');
 
