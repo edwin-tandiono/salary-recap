@@ -1,4 +1,5 @@
 import styles from './Sheet.module.scss';
+import Table from './table';
 
 export function Sheet() {
   return (
@@ -7,7 +8,7 @@ export function Sheet() {
         
       </nav>
       <main>
-      
+        <Table />
       </main>
     </div>
   );
