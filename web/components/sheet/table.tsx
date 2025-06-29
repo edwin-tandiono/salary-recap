@@ -1,7 +1,7 @@
 import range from 'lodash/range';
 
 import Row from './row';
-import styles from '../Sheet.module.scss';
+import styles from './Sheet.module.scss';
 
 const DUMMY_DATA = {
   name: 'Andy McAndyFace',
@@ -14,8 +14,8 @@ const DUMMY_DATA = {
   remainingDebt: 500000,
   bonusAllowance: 5000,
   bonusAttendance: 10000,
-  bonusTransport: undefined,
-  bonus: undefined,
+  bonusTransport: 0,
+  bonus: 0,
 };
 
 export default function Table() {
@@ -44,7 +44,7 @@ export default function Table() {
 
       <tbody className={styles['table__body']}>
         {range(50).map((data, index) => (
-          <Row key={DUMMY_DATA.name} data={DUMMY_DATA} index={index} />
+          <Row key={DUMMY_DATA.name} employee={DUMMY_DATA} index={index} />
         ))}
       </tbody>
     </table>

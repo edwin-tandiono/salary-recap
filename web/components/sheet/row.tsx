@@ -2,27 +2,16 @@ import compact from 'lodash/compact';
 import sum from 'lodash/sum';
 import { useRef } from 'react';
 
-import { format } from '../../../utils/currency';
-import styles from '../Sheet.module.scss';
+import { type Employee } from 'web/interfaces/employee.interface';
+import { format } from 'web/utils/currency';
+
+import styles from './Sheet.module.scss';
 
 export default function Row({
-  data,
+  employee,
   index,
 }: {
-  data: {
-    name: string,
-    baseSalary?: number,
-    mealAllowance?: number,
-    mealAllowanceCount?: number,
-    overtimePay?: number,
-    overtimePayCount?: number,
-    debtPaid?: number,
-    remainingDebt?: number,
-    bonusAllowance?: number,
-    bonusAttendance?: number,
-    bonusTransport?: number,
-    bonus?: number,
-  },
+  employee: Employee,
   index: number,
 }) {
   const {
@@ -38,7 +27,7 @@ export default function Row({
     bonusAttendance,
     bonusTransport,
     bonus,
-  } = data;
+  } = employee;
 
   const rowRef = useRef<HTMLTableRowElement>(null);
   const total = sum(compact([

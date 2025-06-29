@@ -1,30 +1,40 @@
-// https://github.com/import-js/eslint-plugin-import/issues/2132
-/* eslint-disable import/no-unresolved */
-
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import importPlugin from 'eslint-plugin-import';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import { importX } from 'eslint-plugin-import-x'
 import pluginReact from 'eslint-plugin-react';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-
+import { createNodeResolver } from 'eslint-plugin-import-x'
 
 export default defineConfig([
   { files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], plugins: { js }, extends: ['js/recommended'] },
   { files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], languageOptions: { globals: globals.browser } },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
-    // other configs...
+    settings: {
+      'react': {
+        version: 'detect',
+      },
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
+          project: './',
+        }),
+        createNodeResolver({
+          project: './',
+        }),
+      ],
+    },
   },
   {
     rules: {
-      'comma-dangle': ['error', 'only-multiline'],
-      'import/order': [
-        'warn',
+      'comma-dangle': ['error', 'always-multiline'],
+      quotes: ['error', 'single'],
+      'react/react-in-jsx-scope': 'off',
+      'import-x/order': [
+        'error',
         {
           'newlines-between': 'always',
           'alphabetize': {
@@ -35,15 +45,13 @@ export default defineConfig([
             'builtin',
             'external',
             'internal',
-            'parent',
-            'sibling',
+            ['parent', 'sibling'],
             'index',
-            'object'
+            'object',
+            'type',
           ]
         }
       ],
-      quotes: ['error', 'single'],
-      'react/react-in-jsx-scope': 'off',
     },
   },
 ]);

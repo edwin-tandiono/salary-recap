@@ -1,8 +1,8 @@
-/*
+/**
  * Format amount to currect with separators.
  * @author tandiono98@gmail.com
  * @param {Number} value
- * @return {String}
+ * @returns {String}
  * @example
  * // returns '3,000,002.123'
  * format(3000002.123);
