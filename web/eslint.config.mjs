@@ -1,13 +1,13 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
-import { importX } from 'eslint-plugin-import-x'
+import { importX, createNodeResolver  } from 'eslint-plugin-import-x'
 import pluginReact from 'eslint-plugin-react';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { createNodeResolver } from 'eslint-plugin-import-x'
 
 export default defineConfig([
+  { ignores: ['**/node_modules/**', '**/.react-router/**'] },
   { files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], plugins: { js }, extends: ['js/recommended'] },
   { files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], languageOptions: { globals: globals.browser } },
   tseslint.configs.recommended,
@@ -39,7 +39,7 @@ export default defineConfig([
           'newlines-between': 'always',
           'alphabetize': {
             'order': 'asc',
-            'caseInsensitive': true
+            'caseInsensitive': true,
           },
           'groups': [
             'builtin',
@@ -49,8 +49,8 @@ export default defineConfig([
             'index',
             'object',
             'type',
-          ]
-        }
+          ],
+        },
       ],
     },
   },

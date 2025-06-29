@@ -1,13 +1,13 @@
 /**
  * Format amount to currect with separators.
  * @author tandiono98@gmail.com
- * @param {Number} value
+ * @param {Number|String} value
  * @returns {String}
  * @example
  * // returns '3,000,002.123'
  * format(3000002.123);
  */
-export const format = (value: number) => {
+export const format = (value: number | string) => {
   const stringifiedValue = value.toString();
 
   if (stringifiedValue.length <= 3) {

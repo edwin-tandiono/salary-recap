@@ -1,15 +1,15 @@
-import range from 'lodash/range';
-
 import Row from './row';
 import styles from './Sheet.module.scss';
+
 import type { Employee } from 'web/interfaces/employee.interface';
+import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
 
 export default function Table({
   employees,
   onChange,
 }: {
   employees: Array<Employee>,
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange: CustomChangeEventHandler,
 }) {
   return (
     <table className={styles['table']}>
@@ -37,7 +37,7 @@ export default function Table({
       <tbody className={styles['table__body']}>
         {employees.map((employee, row) => (
           <Row
-            key={employee.name}
+            key={row}
             employee={employee}
             onChange={onChange}
             row={row}

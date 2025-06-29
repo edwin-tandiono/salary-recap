@@ -2,11 +2,13 @@ import compact from 'lodash/compact';
 import sum from 'lodash/sum';
 import { useRef } from 'react';
 
-import { type Employee } from 'web/interfaces/employee.interface';
 import { format } from 'web/utils/currency';
 
 import Input from './input';
 import styles from './Sheet.module.scss';
+
+import type { Employee } from 'web/interfaces/employee.interface';
+import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
 
 function ClickableCell(
   { children, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>
@@ -34,7 +36,7 @@ export default function Row({
 }: {
   employee: Employee,
   row: number,
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange: CustomChangeEventHandler,
 }) {
   const {
     name,
@@ -79,7 +81,6 @@ export default function Row({
       name={name}
       onChange={onChange}
       row={row}
-      type="text"
       value={value}
     />
   );
@@ -136,8 +137,6 @@ export default function Row({
       </>
     );
   };
-
-  console.log('Row render', row, employee);
 
   return (
     <tr ref={rowRef}>

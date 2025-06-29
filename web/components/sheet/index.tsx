@@ -1,8 +1,12 @@
+import isNumber from 'lodash/isNumber';
+import range from 'lodash/range';
 import { useState } from 'react';
+
+
 import styles from './Sheet.module.scss';
 import Table from './table';
 
-import range from 'lodash/range';
+import type { ChangeEventAdditionalData } from 'web/interfaces/form.interface';
 
 const DUMMY_DATA = range(2).map(() => ({
   name: 'Andy McAndyFace',
@@ -22,28 +26,26 @@ const DUMMY_DATA = range(2).map(() => ({
 export function Sheet() {
   const [employees, setEmployees] = useState(DUMMY_DATA);
 
-  const handleChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const {
-      name,
-      value,
-    } = target;
-
-    const row = Number(target.getAttribute('data-indexed-input-row'));
+  const handleChange = (e: React.ChangeEvent, {
+    name,
+    row,
+    value,
+  }: ChangeEventAdditionalData & { row: number }) => {
+    console.log('handleChange', row, name, value);
 
     setEmployees((prev) => {
       const updatedEmployees = [...prev];
 
-      updatedEmployees[Number(row)] = {
-        ...updatedEmployees[Number(row)],
-        [name]: value,
+      updatedEmployees[row] = {
+        ...updatedEmployees[row],
+        [name]: isNumber(updatedEmployees[row][name])
+          ? Number(value)
+          : value,
       };
 
       return updatedEmployees;
     });
-  }
-
-  console.log('Sheet render', employees);
+  };
 
   return (
     <div className={styles['sheet']}>
