@@ -2,23 +2,15 @@ import range from 'lodash/range';
 
 import Row from './row';
 import styles from './Sheet.module.scss';
+import type { Employee } from 'web/interfaces/employee.interface';
 
-const DUMMY_DATA = {
-  name: 'Andy McAndyFace',
-  baseSalary: 1570000,
-  mealAllowance: 30000,
-  mealAllowanceCount: 24,
-  overtimePay: 50000,
-  overtimePayCount: 26,
-  debtPaid: 125000,
-  remainingDebt: 500000,
-  bonusAllowance: 5000,
-  bonusAttendance: 10000,
-  bonusTransport: 0,
-  bonus: 0,
-};
-
-export default function Table() {
+export default function Table({
+  employees,
+  onChange,
+}: {
+  employees: Array<Employee>,
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+}) {
   return (
     <table className={styles['table']}>
       <thead>
@@ -43,8 +35,13 @@ export default function Table() {
       </thead>
 
       <tbody className={styles['table__body']}>
-        {range(50).map((data, index) => (
-          <Row key={DUMMY_DATA.name} employee={DUMMY_DATA} index={index} />
+        {employees.map((employee, row) => (
+          <Row
+            key={employee.name}
+            employee={employee}
+            onChange={onChange}
+            row={row}
+          />
         ))}
       </tbody>
     </table>

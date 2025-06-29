@@ -69,22 +69,34 @@
 
   tbody {
     tr {
-      &:hover {
+      &:hover,
+      &:has(input:focus) {
         background-color: variables.$green-80;
       }
       td {
-        padding: 0 10px;
-
         &.align-left {
+          padding-left: 5px;
           text-align: left;
         }
 
         &.align-right {
+          padding-right: 5px;
           text-align: right;
         }
 
         &.merged {
           border-right: 0;
+        }
+
+        input {
+          border: 0;
+          border-radius: 0;
+          font-size: 1rem;
+          padding: 0;
+
+          &:focus {
+            outline: 0;
+          }
         }
       }
     }

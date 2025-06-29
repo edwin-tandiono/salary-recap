@@ -1,7 +1,50 @@
+import { useState } from 'react';
 import styles from './Sheet.module.scss';
 import Table from './table';
 
+import range from 'lodash/range';
+
+const DUMMY_DATA = range(2).map(() => ({
+  name: 'Andy McAndyFace',
+  baseSalary: 1570000,
+  mealAllowance: 30000,
+  mealAllowanceCount: 24,
+  overtimePay: 50000,
+  overtimePayCount: 26,
+  debtPaid: 125000,
+  remainingDebt: 500000,
+  bonusAllowance: 5000,
+  bonusAttendance: 10000,
+  bonusTransport: 0,
+  bonus: 0,
+}));
+
 export function Sheet() {
+  const [employees, setEmployees] = useState(DUMMY_DATA);
+
+  const handleChange = (e: React.ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+    const {
+      name,
+      value,
+    } = target;
+
+    const row = Number(target.getAttribute('data-indexed-input-row'));
+
+    setEmployees((prev) => {
+      const updatedEmployees = [...prev];
+
+      updatedEmployees[Number(row)] = {
+        ...updatedEmployees[Number(row)],
+        [name]: value,
+      };
+
+      return updatedEmployees;
+    });
+  }
+
+  console.log('Sheet render', employees);
+
   return (
     <div className={styles['sheet']}>
       <nav>
@@ -12,7 +55,7 @@ export function Sheet() {
         </span>
       </nav>
       <main>
-        <Table />
+        <Table employees={employees} onChange={handleChange} />
       </main>
     </div>
   );
