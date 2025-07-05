@@ -1,14 +1,19 @@
 @use '../../styles/variables';
 
 .sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: hidden;
   position: relative;
 
   nav {
     align-items: center;
-    background: white;
+    background: variables.$green-50;
     box-sizing: border-box;
+    color: variables.$white;
     display: flex;
-    height: variables.$navbar-height;
+    height: 40px;
     padding: 10px;
     position: sticky;
     top: 0;
@@ -20,27 +25,45 @@
       margin: 0;
 
       b {
+        font-size: 1.5rem;
         font-weight: bold;
       }
     }
+  }
+
+  main {
+    flex-grow: 1;
+    overflow: auto;
+    position: relative;
   }
 }
 
 .table {
   border-spacing: 0;
+  height: 100%;
   text-align: center;
   width: 100%;
 
   td {  
     border-bottom: 1px solid variables.$grey-50;
     border-right: 1px solid variables.$grey-50;
+
+    &.align-left {
+      padding-left: 5px;
+      text-align: left;
+    }
+
+    &.align-right {
+      padding-right: 5px;
+      text-align: right;
+    }
   }
 
   thead {    
     font-weight: 500;
     position: sticky;
     text-transform: uppercase;
-    top: variables.$navbar-height;
+    top:0;
 
     tr {
       td {
@@ -53,11 +76,11 @@
         }
       }
 
-      .bonus__upper {
+      .bonus-upper {
         border-bottom: 1px solid variables.$grey-50 !important;
       }
 
-      .bonus__lower {
+      .bonus-lower {
         border-top: 0;
 
         &:last-child {
@@ -69,26 +92,76 @@
 
   tbody {
     tr {
-      &:hover,
+      &.selectable:hover,
       &:has(input:focus) {
-        background-color: variables.$green-80;
-      }
-      td {
-        &.align-left {
-          padding-left: 5px;
-          text-align: left;
+        td {
+          background: variables.$green-30;
         }
+      }
 
-        &.align-right {
-          padding-right: 5px;
-          text-align: right;
+      &.add-employee {
+        vertical-align: top;
+
+        td {
+          border-top: 2px solid variables.$green-50;
+          padding: 0;
+
+          button {
+            background: none;
+            border-bottom: 0;
+            border-left: 1rem solid transparent;
+            border-right: 1rem solid transparent;
+            border-top: 2rem solid variables.$green-50;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            width: 30%;
+
+            &:hover {
+              filter: brightness(120%);
+            }
+
+            div {
+              color: variables.$white;
+              display: block;
+              font-weight: 600;
+              position: absolute;
+              text-align: center;
+              top: -1.5rem;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      &.middle-padding,
+      &.bottom-padding {
+        td {
+          border-bottom: 0;
+          border-color: variables.$grey-30;
+        }
+      }
+
+      &.bottom-padding {
+        height: 100%;
+      }
+
+      td {
+        &:has(input:focus),
+        &:has(input):hover {
+          box-shadow: inset 0 0 0 2px variables.$green-50;
         }
 
         &.merged {
           border-right: 0;
         }
 
+        &:has(input) {
+          background: variables.$grey-10;
+        }
+
         input {
+          background-color: transparent;
           border: 0;
           border-radius: 0;
           font-size: 1rem;
@@ -96,6 +169,34 @@
 
           &:focus {
             outline: 0;
+          }
+        }
+      }
+    }
+  }
+
+  tfoot {
+    bottom: 0;
+    position: sticky;
+
+    tr {
+      td {
+        background: variables.$white;
+        color: variables.$grey-50;
+        border-top: 2px solid variables.$grey-50;
+        font-size: 1.14rem;
+        padding: 0 10px;
+
+        b {
+          color: variables.$black;
+        }
+
+        &:last-child {
+          background: variables.$green-50;
+          font-size: 1.5rem;
+
+          b {          
+            color: variables.$white;
           }
         }
       }

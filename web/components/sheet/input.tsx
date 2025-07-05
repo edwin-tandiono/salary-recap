@@ -59,9 +59,6 @@ export default function Input({
     }
 
     setLocalValue(formattedValue);
-    console.log('Input value changed:', formattedValue);
-
-    console.log('onChange', {...e})
 
     onChange(e, {
       name,
@@ -88,12 +85,12 @@ export default function Input({
         moveToTargetField(col, row - 1);
         break;
 
-      case 'Tab':
       case 'ArrowLeft':
         e.preventDefault();
         moveToTargetField(col - 1, row);
         break;
-
+        
+      case 'Tab':
       case 'ArrowRight':
         e.preventDefault();
         moveToTargetField(col + 1, row);
@@ -111,14 +108,9 @@ export default function Input({
   // Adjust input width on displayed value change
   useEffect(() => {
     if (inputRef.current) {
-      console.log('Adjusting input width:', localValue, displayedValue);
-      inputRef.current.style.width = `${Math.max(displayedValue.toString().length, 1)}ch`;
+      inputRef.current.style.width = `${Math.max(displayedValue.toString().length + 0.5, 1)}ch`;
     }
   }, [displayedValue]);
-
-  useEffect(() => {
-    console.log('localvalue change', localValue)
-  }, [localValue]);
 
   // Sync local value with prop value
   useEffect(() => {

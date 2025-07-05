@@ -4,6 +4,6 @@ export interface ChangeEventAdditionalData {
   [x: string]: unknown;
 };
 
-export interface CustomChangeEventHandler extends React.ChangeEventHandler<HTMLInputElement> {
+export interface CustomChangeEventHandler {
   (event: React.ChangeEvent<HTMLInputElement>, additionalData: ChangeEventAdditionalData): void,
 };

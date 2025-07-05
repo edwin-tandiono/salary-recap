@@ -26,13 +26,10 @@ const DUMMY_DATA = range(2).map(() => ({
 export function Sheet() {
   const [employees, setEmployees] = useState(DUMMY_DATA);
 
-  const handleChange = (e: React.ChangeEvent, {
-    name,
-    row,
-    value,
-  }: ChangeEventAdditionalData & { row: number }) => {
-    console.log('handleChange', row, name, value);
-
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    { name, row, value }: ChangeEventAdditionalData & { row: number },
+  ) => {
     setEmployees((prev) => {
       const updatedEmployees = [...prev];
 
@@ -46,18 +43,42 @@ export function Sheet() {
       return updatedEmployees;
     });
   };
+  
+  const addEmployee = () => {
+    setEmployees((prev) => [
+      ...prev,
+      {
+        name: '',
+        baseSalary: 0,
+        mealAllowance: 0,
+        mealAllowanceCount: 0,
+        overtimePay: 0,
+        overtimePayCount: 0,
+        debtPaid: 0,
+        remainingDebt: 0,
+        bonusAllowance: 0,
+        bonusAttendance: 0,
+        bonusTransport: 0,
+        bonus: 0,
+      },
+    ]);
+  };
 
   return (
     <div className={styles['sheet']}>
       <nav>
         <span>
           <small>Rekap Gaji Bulan:</small>
-          &nbsp;
-          <h3><b>JUNI 2025</b></h3>
+          &nbsp;&nbsp;
+          <b>JUNI 2025</b>
         </span>
       </nav>
       <main>
-        <Table employees={employees} onChange={handleChange} />
+        <Table
+          employees={employees}
+          onAdd={addEmployee}
+          onChange={handleChange}
+        />
       </main>
     </div>
   );

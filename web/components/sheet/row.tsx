@@ -139,7 +139,7 @@ export default function Row({
   };
 
   return (
-    <tr ref={rowRef}>
+    <tr className={styles['selectable']} ref={rowRef}>
       <td>{row + 1}</td>
       {renderRowContentWithInput()}
     </tr>
