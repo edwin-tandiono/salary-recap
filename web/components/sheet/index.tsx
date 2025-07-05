@@ -1,7 +1,8 @@
 import isNumber from 'lodash/isNumber';
 import range from 'lodash/range';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
+import Button from 'web/components/common/button';
 
 import styles from './Sheet.module.scss';
 import Table from './table';
@@ -24,7 +25,11 @@ const DUMMY_DATA = range(2).map(() => ({
 }));
 
 export function Sheet() {
+  const deleteDialogRef = useRef<HTMLDialogElement>(null);
+
+  const [title, setTitle] = useState('JUNI 2025');
   const [employees, setEmployees] = useState(DUMMY_DATA);
+  const [employeeIndexToDelete, setEmployeeIndexToDelete] = useState<number|null>();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -64,22 +69,66 @@ export function Sheet() {
     ]);
   };
 
+  const confirmDeleteEmployee = (index) => {
+    setEmployeeIndexToDelete(index);
+    deleteDialogRef.current.showModal();
+  };
+
+  const deleteEmployee = () => {
+    setEmployees((prev) => {
+      const updatedEmployees = [...prev];
+      updatedEmployees.splice(employeeIndexToDelete, 1);
+
+      return updatedEmployees;
+    });
+    setEmployeeIndexToDelete(null);
+  };
+
   return (
     <div className={styles['sheet']}>
       <nav>
-        <span>
-          <small>Rekap Gaji Bulan:</small>
+        <div className={styles['title']}>
+          Rekap Gaji Bulan:
           &nbsp;&nbsp;
-          <b>JUNI 2025</b>
-        </span>
+          <input
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+        </div>
       </nav>
+
       <main>
         <Table
           employees={employees}
           onAdd={addEmployee}
+          onDelete={confirmDeleteEmployee}
           onChange={handleChange}
         />
       </main>
+
+      <dialog
+        ref={deleteDialogRef}
+        className={styles['delete-dialog']}
+        closedBy="any"
+      >
+        {`Hapus ${employees[employeeIndexToDelete]?.name || employeeIndexToDelete + 1}?`}
+        <br />
+        <br />
+        <div className={styles['delete-dialog__actions']}>
+          <Button
+            onClick={() => {
+              deleteDialogRef.current.close();
+              deleteEmployee();
+            }}
+            type="button"
+          >
+            Hapus
+          </Button>
+          <Button onClick={() => deleteDialogRef.current.close()} type="button">
+            Batal
+          </Button>
+        </div>
+      </dialog>
     </div>
   );
 }

@@ -18,15 +18,21 @@
     position: sticky;
     top: 0;
 
-    span {
+    .title {
       align-items: center;
       display: flex;
       font-weight: 300;
       margin: 0;
 
-      b {
-        font-size: 1.5rem;
+      input {
+        background: none;
+        border: 0;
+        border-bottom: 1px solid variables.$white;
+        border-radius: 0;
+        color: inherit;
+        font-size: 1.3rem;
         font-weight: bold;
+        outline: none;
       }
     }
   }
@@ -35,6 +41,33 @@
     flex-grow: 1;
     overflow: auto;
     position: relative;
+  }
+
+  .delete-dialog {
+    border: 0;
+
+    &::backdrop {
+      backdrop-filter: blur(5px);
+    }
+
+    &__actions {
+      text-align: right;
+      
+      button {
+        margin-right: 10px;
+        padding: 10px;
+
+        &:first-child {
+          background: variables.$red-50;
+          color: variables.$white;
+        }
+
+        &:last-child {
+          background: none;
+          margin-right: 0;
+        }
+      }
+    }
   }
 }
 
@@ -98,38 +131,30 @@
           background: variables.$green-30;
         }
       }
+      
+      &.selectable:hover {
+        cursor: text;
+
+        .number-cell .number {
+          display: none;
+        }
+      }
 
       &.add-employee {
         vertical-align: top;
 
         td {
-          border-top: 2px solid variables.$green-50;
+          border-top: 4px solid variables.$green-50;
           padding: 0;
 
           button {
-            background: none;
-            border-bottom: 0;
-            border-left: 1rem solid transparent;
-            border-right: 1rem solid transparent;
-            border-top: 2rem solid variables.$green-50;
+            background: variables.$green-50;
+            color: variables.$white;
             cursor: pointer;
-            padding: 0;
+            height: 2rem;
+            margin-bottom: 5px;
             position: relative;
             width: 30%;
-
-            &:hover {
-              filter: brightness(120%);
-            }
-
-            div {
-              color: variables.$white;
-              display: block;
-              font-weight: 600;
-              position: absolute;
-              text-align: center;
-              top: -1.5rem;
-              width: 100%;
-            }
           }
         }
       }
@@ -158,6 +183,47 @@
 
         &:has(input) {
           background: variables.$grey-10;
+        }
+
+        &.number-cell {
+          max-width: 2rem;
+          min-width: 1rem;
+          padding: 0;
+          position: relative;
+
+          .number {
+            background: variables.$white;
+            height: 100%;
+            left: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+
+          .action-wrapper {
+            align-items: center;
+            display: flex;
+            height: 100%;
+            width: 100%;
+
+            button {
+              align-items: center;
+              background: variables.$green-50;
+              display: flex;
+              height: 100%;
+              padding: 0 4px;
+
+              svg {
+                height: 100%;
+                width: 100%;
+
+                path {
+                  fill: variables.$white;
+                }
+              }
+            }
+          }
         }
 
         input {

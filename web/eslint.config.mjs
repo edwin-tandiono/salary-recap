@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
-import { importX, createNodeResolver  } from 'eslint-plugin-import-x'
+import { importX, createNodeResolver  } from 'eslint-plugin-import-x';
 import pluginReact from 'eslint-plugin-react';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -32,7 +32,10 @@ export default defineConfig([
     rules: {
       'comma-dangle': ['error', 'always-multiline'],
       quotes: ['error', 'single'],
+      'semi': 'error',
       'react/react-in-jsx-scope': 'off',
+      // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
+      'react/no-unknown-property': ['error', { ignore: ['closedBy'] }],
       'import-x/order': [
         'error',
         {

@@ -17,7 +17,7 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "lint": "eslint ."
+    "lint": "eslint --fix ."
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",

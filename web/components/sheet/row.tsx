@@ -2,10 +2,14 @@ import compact from 'lodash/compact';
 import sum from 'lodash/sum';
 import { useRef } from 'react';
 
+import ArrowUpArrowDown from 'web/assets/arrow-up-arrow-down.svg?react';
+import Trash from 'web/assets/trash.svg?react';
+import Button from 'web/components/common/button';
 import { format } from 'web/utils/currency';
 
 import Input from './input';
 import styles from './Sheet.module.scss';
+
 
 import type { Employee } from 'web/interfaces/employee.interface';
 import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
@@ -33,10 +37,12 @@ export default function Row({
   employee,
   row,
   onChange,
+  onDelete,
 }: {
   employee: Employee,
   row: number,
   onChange: CustomChangeEventHandler,
+  onDelete: (number) => void,
 }) {
   const {
     name,
@@ -140,7 +146,19 @@ export default function Row({
 
   return (
     <tr className={styles['selectable']} ref={rowRef}>
-      <td>{row + 1}</td>
+      <td className={styles['number-cell']}>
+        <div className={styles['action-wrapper']}>
+          <Button onClick={() => onDelete(row)} title="Hapus" type="button">
+            <Trash />
+          </Button>
+          <Button title="Geser" type="button">
+            <ArrowUpArrowDown />
+          </Button>
+        </div>
+        <div className={styles['number']}>
+          {row + 1}
+        </div>
+      </td>
       {renderRowContentWithInput()}
     </tr>
   );

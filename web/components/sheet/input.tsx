@@ -49,7 +49,7 @@ export default function Input({
     setTimeout(() => {
       inputRef.current?.select();
     }, 0);
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let formattedValue = e.target.value;
@@ -65,7 +65,7 @@ export default function Input({
       row,
       value: formattedValue,
     });
-  }
+  };
 
   const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {

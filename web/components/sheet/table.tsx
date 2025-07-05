@@ -1,5 +1,6 @@
 import sumBy from 'lodash/sumBy';
 
+import Button from 'web/components/common/button';
 import Justify from 'web/components/common/justify';
 import { format } from 'web/utils/currency';
 
@@ -14,10 +15,12 @@ import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
 export default function Table({
   employees,
   onAdd,
+  onDelete,
   onChange,
 }: {
   employees: Array<Employee>,
   onAdd: () => void,
+  onDelete: (number) => void,
   onChange: CustomChangeEventHandler,
 }) {
   return (
@@ -49,6 +52,7 @@ export default function Table({
             key={row}
             employee={employee}
             onChange={onChange}
+            onDelete={onDelete}
             row={row}
           />
         ))}
@@ -65,12 +69,12 @@ export default function Table({
 
         <tr className={styles['add-employee']}>
           <td colSpan={21}>
-            <button
+            <Button
               onClick={onAdd}
               type="button"
             >
-              <div>TAMBAH KARYAWAN</div>
-            </button>
+              <b>TAMBAH KARYAWAN</b>
+            </Button>
            </td>
         </tr>
 
