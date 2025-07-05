@@ -1,0 +1,104 @@
+@use '../../styles/variables';
+
+.sheet {
+  position: relative;
+
+  nav {
+    align-items: center;
+    background: white;
+    box-sizing: border-box;
+    display: flex;
+    height: variables.$navbar-height;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+
+    span {
+      align-items: center;
+      display: flex;
+      font-weight: 300;
+      margin: 0;
+
+      b {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.table {
+  border-spacing: 0;
+  text-align: center;
+  width: 100%;
+
+  td {  
+    border-bottom: 1px solid variables.$grey-50;
+    border-right: 1px solid variables.$grey-50;
+  }
+
+  thead {    
+    font-weight: 500;
+    position: sticky;
+    text-transform: uppercase;
+    top: variables.$navbar-height;
+
+    tr {
+      td {
+        background: variables.$white;
+        border-bottom: 2px solid variables.$grey-50;
+        border-top: 2px solid variables.$grey-50;
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+
+      .bonus__upper {
+        border-bottom: 1px solid variables.$grey-50 !important;
+      }
+
+      .bonus__lower {
+        border-top: 0;
+
+        &:last-child {
+          border-right: 1px solid variables.$grey-50;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover,
+      &:has(input:focus) {
+        background-color: variables.$green-80;
+      }
+      td {
+        &.align-left {
+          padding-left: 5px;
+          text-align: left;
+        }
+
+        &.align-right {
+          padding-right: 5px;
+          text-align: right;
+        }
+
+        &.merged {
+          border-right: 0;
+        }
+
+        input {
+          border: 0;
+          border-radius: 0;
+          font-size: 1rem;
+          padding: 0;
+
+          &:focus {
+            outline: 0;
+          }
+        }
+      }
+    }
+  }
+}
