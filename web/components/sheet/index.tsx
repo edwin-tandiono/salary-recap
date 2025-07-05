@@ -114,7 +114,7 @@ export function Sheet() {
         {`Hapus ${employees[employeeIndexToDelete]?.name || employeeIndexToDelete + 1}?`}
         <br />
         <br />
-        <div className={styles['delete-dialog__actions']}>
+        <div className={styles['actions']}>
           <Button
             onClick={() => {
               deleteDialogRef.current.close();

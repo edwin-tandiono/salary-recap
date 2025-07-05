@@ -148,10 +148,17 @@ export default function Row({
     <tr className={styles['selectable']} ref={rowRef}>
       <td className={styles['number-cell']}>
         <div className={styles['action-wrapper']}>
-          <Button onClick={() => onDelete(row)} title="Hapus" type="button">
+          <Button
+            onClick={() => onDelete(row)}
+            title="Klik untuk hapus"
+            type="button"
+          >
             <Trash />
           </Button>
-          <Button title="Geser" type="button">
+          <Button
+            title="Klik tahan untuk geser"
+            type="button"
+          >
             <ArrowUpArrowDown />
           </Button>
         </div>

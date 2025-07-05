@@ -73,7 +73,7 @@ export default function Table({
               onClick={onAdd}
               type="button"
             >
-              <b>TAMBAH KARYAWAN</b>
+              <b>Tambah Karyawan</b>
             </Button>
            </td>
         </tr>
