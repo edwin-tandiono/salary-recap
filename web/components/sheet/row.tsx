@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import compact from 'lodash/compact';
+import noop from 'lodash/noop';
 import sum from 'lodash/sum';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ArrowUpArrowDown from 'web/assets/arrow-up-arrow-down.svg?react';
 import Trash from 'web/assets/trash.svg?react';
@@ -64,6 +66,9 @@ export default function Row({
   } = employee;
 
   const rowRef = useRef<HTMLTableRowElement>(null);
+
+  const [draggable, setDraggable] = useState(false);
+
   const total = sum(compact([
     baseSalary,
     (mealAllowance || 0) * (mealAllowanceCount || 0),
@@ -73,6 +78,21 @@ export default function Row({
     bonusTransport,
     bonus,
   ])) - (debtPaid || 0);
+
+  // On need to reset draggable
+  useEffect(() => {
+    const disableDraggable = () => setDraggable(false);
+
+    if (draggable) {
+      document.addEventListener('drop', disableDraggable);
+    }
+
+    return () => {
+      if (draggable) {
+        document.removeEventListener('drop', disableDraggable);
+      }
+    };
+  }, [draggable]);
 
   const renderInput = ({
     col,
@@ -114,7 +134,7 @@ export default function Row({
           {renderInput({ col: initialCol++, name: 'mealAllowanceCount', value: mealAllowanceCount })}
         </ClickableCell>
         <td className={styles['merged']}>=</td>
-        <td className={styles['align-right']}>{format((mealAllowance || 0) * (mealAllowanceCount || 0))}</td>
+        <td className={styles['align-right']}>{format((mealAllowance || 0) * (mealAllowanceCount || 0) || '')}</td>
         <ClickableCell className={`${styles['align-right']} ${styles['merged']}`}>
           {renderInput({ col: initialCol++, format: true, name: 'overtimePay', value: overtimePay })}
         </ClickableCell>
@@ -123,7 +143,7 @@ export default function Row({
           {renderInput({ col: initialCol++, name: 'overtimePayCount', value: overtimePayCount })}
         </ClickableCell>
         <td className={styles['merged']}>=</td>
-        <td className={styles['align-right']}>{format((overtimePay || 0) * (overtimePayCount || 0))}</td>
+        <td className={styles['align-right']}>{format((overtimePay || 0) * (overtimePayCount || 0) || '')}</td>
         <ClickableCell className={styles['merged']}>
           {renderInput({ col: initialCol++, format: true, name: 'debtPaid', value: debtPaid })}
         </ClickableCell>
@@ -143,7 +163,7 @@ export default function Row({
         <ClickableCell>
           {renderInput({ col: initialCol++, format: true, name: 'bonus', value: bonus })}
         </ClickableCell>
-        <td className={styles['align-right']}>{format(total)}</td>
+        <td className={styles['align-right']}>{format(total || '')}</td>
       </>
     );
   };
@@ -151,10 +171,13 @@ export default function Row({
   return (
     <tr
       ref={rowRef}
-      className={styles['selectable']}
-      draggable
-      onDragOver={() => onDragOver(row)}
-      onDragStart={() => onDragStart(row)}
+      className={classNames(styles['selectable'])}
+      draggable={draggable}
+      onDragOver={(e) => {
+        e.preventDefault();
+        onDragOver(row);
+      }}
+      onDragStart={() => draggable ? onDragStart(row) : noop}
     >
       <td className={styles['number-cell']}>
         <div className={styles['action-wrapper']}>
@@ -166,6 +189,8 @@ export default function Row({
             <Trash />
           </Button>
           <Button
+            onPointerDown={() => setDraggable(true)}
+            onPointerUp={() => setDraggable(false)}
             title="Klik tahan untuk geser"
             type="button"
           >

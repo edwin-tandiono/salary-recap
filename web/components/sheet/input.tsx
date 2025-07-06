@@ -116,9 +116,11 @@ export default function Input({
         autoComplete="off"
         data-indexed-input-col={col}
         data-indexed-input-row={row}
+        draggable={false}
         name={name}
         onBlur={() => setIsFocused(false)}
         onChange={handleChange}
+        onDragStart={(e) => e.preventDefault()}
         onFocus={handleFocus}
         onKeyDown={handleKeydown}
         type="text"

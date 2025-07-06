@@ -108,7 +108,6 @@ export function Sheet() {
       <dialog
         ref={deleteDialogRef}
         className={styles['delete-dialog']}
-        closedBy="any"
       >
         {`Hapus ${employees[employeeIndexToDelete]?.name || employeeIndexToDelete + 1}?`}
         <br />
