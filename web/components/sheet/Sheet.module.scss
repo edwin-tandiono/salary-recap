@@ -140,6 +140,17 @@
         }
       }
 
+      &.drag-target {
+        td {
+          background: variables.$green-50;
+          color: variables.$white;
+
+          &.number-cell .number {
+            background: inherit;
+          }
+        }
+      }
+
       &.add-employee {
         vertical-align: top;
 
@@ -230,6 +241,7 @@
           background-color: transparent;
           border: 0;
           border-radius: 0;
+          color: inherit;
           font-size: 1rem;
           padding: 0;
 

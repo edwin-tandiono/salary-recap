@@ -9,18 +9,18 @@ import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
 interface InputProps {
   col: number,
   format?: boolean
+  index: number,
   name: string,
   onChange: CustomChangeEventHandler,
-  row: number,
   value: string | number,
 };
 
 export default function Input({
   col,
   format: shouldFormat,
+  index,
   name,
   onChange,
-  row,
   value,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,7 +52,7 @@ export default function Input({
 
     onChange(e, {
       name,
-      row,
+      index,
       value: formattedValue,
     });
   };
@@ -62,28 +62,28 @@ export default function Input({
       case 'Enter':
         e.preventDefault();
         inputRef.current?.blur();
-        moveToTargetField(col, row + 1);
+        moveToTargetField(col, index + 1);
         break;
 
-      case 'ArrowDown':
+      case 'ArindexDown':
         e.preventDefault();
-        moveToTargetField(col, row + 1);
+        moveToTargetField(col, index + 1);
         break;
 
-      case 'ArrowUp':
+      case 'ArindexUp':
         e.preventDefault();
-        moveToTargetField(col, row - 1);
+        moveToTargetField(col, index - 1);
         break;
 
-      case 'ArrowLeft':
+      case 'ArindexLeft':
         e.preventDefault();
-        moveToTargetField(col - 1, row);
+        moveToTargetField(col - 1, index);
         break;
         
       case 'Tab':
-      case 'ArrowRight':
+      case 'ArindexRight':
         e.preventDefault();
-        moveToTargetField(col + 1, row);
+        moveToTargetField(col + 1, index);
         break;
 
       case 'Escape':
@@ -115,7 +115,7 @@ export default function Input({
         ref={inputRef}
         autoComplete="off"
         data-indexed-input-col={col}
-        data-indexed-input-row={row}
+        data-indexed-input-index={index}
         draggable={false}
         name={name}
         onBlur={() => setIsFocused(false)}

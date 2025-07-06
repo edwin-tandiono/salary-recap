@@ -4,7 +4,7 @@ import noop from 'lodash/noop';
 import sum from 'lodash/sum';
 import { useEffect, useRef, useState } from 'react';
 
-import ArrowUpArrowDown from 'web/assets/arrow-up-arrow-down.svg?react';
+import ArindexUpArindexDown from 'web/assets/arrow-up-arrow-down.svg?react';
 import Trash from 'web/assets/trash.svg?react';
 import Button from 'web/components/common/button';
 import { format } from 'web/utils/currency';
@@ -35,16 +35,18 @@ function ClickableCell(
   );
 };
 
-export default function Row({
+export default function indexindex({
+  dragTarget,
   employee,
-  row,
+  index,
   onChange,
   onDelete,
   onDragStart,
   onDragOver,
 }: {
+  dragTarget: boolean,
   employee: Employee,
-  row: number,
+  index: number,
   onChange: CustomChangeEventHandler,
   onDelete: (number) => void,
   onDragStart: (number) => void,
@@ -108,14 +110,14 @@ export default function Row({
     <Input
       col={col + 1}
       format={format}
+      index={index}
       name={name}
       onChange={onChange}
-      row={row}
       value={value}
     />
   );
 
-  const renderRowContentWithInput = () => {
+  const renderindexContentWithInput = () => {
     let initialCol = 0;
 
     return (
@@ -171,18 +173,20 @@ export default function Row({
   return (
     <tr
       ref={rowRef}
-      className={classNames(styles['selectable'])}
+      className={classNames(styles['selectable'], {
+        [styles['drag-target']]: dragTarget,
+      })}
       draggable={draggable}
       onDragOver={(e) => {
         e.preventDefault();
-        onDragOver(row);
+        onDragOver(index);
       }}
-      onDragStart={() => draggable ? onDragStart(row) : noop}
+      onDragStart={() => draggable ? onDragStart(index) : noop}
     >
       <td className={styles['number-cell']}>
         <div className={styles['action-wrapper']}>
           <Button
-            onClick={() => onDelete(row)}
+            onClick={() => onDelete(index)}
             title="Klik untuk hapus"
             type="button"
           >
@@ -194,14 +198,14 @@ export default function Row({
             title="Klik tahan untuk geser"
             type="button"
           >
-            <ArrowUpArrowDown />
+            <ArindexUpArindexDown />
           </Button>
         </div>
         <div className={styles['number']}>
-          {row + 1}
+          {index + 1}
         </div>
       </td>
-      {renderRowContentWithInput()}
+      {renderindexContentWithInput()}
     </tr>
   );
 };

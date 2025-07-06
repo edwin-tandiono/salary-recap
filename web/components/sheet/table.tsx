@@ -1,5 +1,6 @@
+import isNumber from 'lodash/isNumber';
 import sumBy from 'lodash/sumBy';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Button from 'web/components/common/button';
 import Justify from 'web/components/common/justify';
@@ -26,18 +27,37 @@ export default function Table({
   onChange: CustomChangeEventHandler,
   onDrag: (currentIndex: number, targetIndex: number) => void,
 }) {
-  const currentMoveIndex = useRef<number|null>(null);
+  const currentDragIndex = useRef<number|null>(null);
+
+  const [targetDragIndex, setTargetDragIndex] = useState<number|null>();
 
   const handleDragStart = (index: number) => {
-    currentMoveIndex.current = index;
+    currentDragIndex.current = index;
   };
 
   const handleDragOver = (index:number) => {
-    if (currentMoveIndex.current !== index) {
-      onDrag(currentMoveIndex.current, index);
-      currentMoveIndex.current = index;
+    if (currentDragIndex.current !== index) {
+      onDrag(currentDragIndex.current, index);
+
+      currentDragIndex.current = index;
+      setTargetDragIndex(index);
     }
   };
+
+  // On need to reset targetDragIndex
+  useEffect(() => {
+    const resetTargetDragIndex = () => setTargetDragIndex(null);
+
+    if (isNumber(targetDragIndex)) {
+      document.addEventListener('drop', resetTargetDragIndex);
+    }
+
+    return () => {
+      if (isNumber(targetDragIndex)) {
+        document.removeEventListener('drop', resetTargetDragIndex);
+      }
+    };
+  }, [targetDragIndex]);
 
   return (
     <table className={styles['table']}>
@@ -63,15 +83,16 @@ export default function Table({
       </thead>
 
       <tbody>
-        {employees.map((employee, row) => (
+        {employees.map((employee, index) => (
           <Row
-            key={row}
+            key={index}
+            dragTarget={targetDragIndex === index}
             employee={employee}
+            index={index}
             onChange={onChange}
             onDelete={onDelete}
             onDragOver={handleDragOver}
             onDragStart={handleDragStart}
-            row={row}
           />
         ))}
 

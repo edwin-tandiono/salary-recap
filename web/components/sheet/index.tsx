@@ -1,5 +1,6 @@
+import debounce from 'lodash/debounce';
 import isNumber from 'lodash/isNumber';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import Button from 'web/components/common/button';
 import { DEMO_EMPLOYEES } from 'web/constants/demo';
@@ -72,7 +73,7 @@ export function Sheet() {
     setEmployeeIndexToDelete(null);
   };
 
-  const moveEmployee = (currentIndex: number, targetIndex: number) => {
+  const moveEmployee = useCallback(debounce((currentIndex: number, targetIndex: number) => {
      setEmployees((prev) => {
       const updatedEmployees = [...prev];
       updatedEmployees.splice(currentIndex, 1);
@@ -80,7 +81,7 @@ export function Sheet() {
 
       return updatedEmployees;
     });
-  };
+  }, 200), []);
 
   return (
     <div className={styles['sheet']}>
