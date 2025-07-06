@@ -1,34 +1,20 @@
 import isNumber from 'lodash/isNumber';
-import range from 'lodash/range';
 import { useRef, useState } from 'react';
 
 import Button from 'web/components/common/button';
+import { DEMO_EMPLOYEES } from 'web/constants/demo';
+import { moveToTargetField } from 'web/utils/sheet';
 
 import styles from './Sheet.module.scss';
 import Table from './table';
 
 import type { ChangeEventAdditionalData } from 'web/interfaces/form.interface';
 
-const DUMMY_DATA = range(2).map(() => ({
-  name: 'Andy McAndyFace',
-  baseSalary: 1570000,
-  mealAllowance: 30000,
-  mealAllowanceCount: 24,
-  overtimePay: 50000,
-  overtimePayCount: 26,
-  debtPaid: 125000,
-  remainingDebt: 500000,
-  bonusAllowance: 5000,
-  bonusAttendance: 10000,
-  bonusTransport: 0,
-  bonus: 0,
-}));
-
 export function Sheet() {
   const deleteDialogRef = useRef<HTMLDialogElement>(null);
 
   const [title, setTitle] = useState('JUNI 2025');
-  const [employees, setEmployees] = useState(DUMMY_DATA);
+  const [employees, setEmployees] = useState(DEMO_EMPLOYEES);
   const [employeeIndexToDelete, setEmployeeIndexToDelete] = useState<number|null>();
 
   const handleChange = (
@@ -67,6 +53,8 @@ export function Sheet() {
         bonus: 0,
       },
     ]);
+
+    setTimeout(() => moveToTargetField(1, employees.length), 0);
   };
 
   const confirmDeleteEmployee = (index) => {

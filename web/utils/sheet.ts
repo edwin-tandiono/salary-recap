@@ -1,6 +1,6 @@
 /**
  * Create new employee.
- * @author tandiono98@gmail.com
+ * @author <tandiono98@gmail.com>
  * @returns {Array<Employee>}
  */
 export const createEmplotee = () => {
@@ -18,4 +18,21 @@ export const createEmplotee = () => {
     bonusTransport: 0,
     bonus: 0,
   };
+};
+
+/**
+ * Focus on specific target field
+ * @author <tandiono98@gmail.com>
+ * @param {Number} col 
+ * @param {Number} row 
+ */
+export const moveToTargetField = (col: number, row: number) => {
+  const targetField = document.querySelector<HTMLInputElement>(
+    `[data-indexed-input-col="${col}"][data-indexed-input-row="${row}"]`,
+  );
+
+  if (targetField) {
+    targetField.focus();
+    targetField.select();
+  }
 };

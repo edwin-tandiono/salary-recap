@@ -2,6 +2,7 @@ import isNumber from 'lodash/isNumber';
 import { useEffect, useRef, useState } from 'react';
 
 import { format } from 'web/utils/currency';
+import { moveToTargetField } from 'web/utils/sheet';
 
 import type { CustomChangeEventHandler } from 'web/interfaces/form.interface';
 
@@ -12,17 +13,6 @@ interface InputProps {
   onChange: CustomChangeEventHandler,
   row: number,
   value: string | number,
-};
-
-const moveToTargetField = (col: number, row: number) => {
-  const targetField = document.querySelector<HTMLInputElement>(
-    `[data-indexed-input-col="${col}"][data-indexed-input-row="${row}"]`,
-  );
-
-  if (targetField) {
-    targetField.focus();
-    targetField.select();
-  }
 };
 
 export default function Input({
@@ -39,8 +29,8 @@ export default function Input({
   const [isFocused, setIsFocused] = useState(false);
 
   const displayedValue = typeof value === 'number' && shouldFormat
-    ? format(localValue)
-    : value;
+    ? format(localValue) === '0' ? '' : format(localValue)
+    : value || '';
 
   const handleFocus = () => {
     setIsFocused(true);
