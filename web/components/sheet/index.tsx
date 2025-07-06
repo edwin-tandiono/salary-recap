@@ -72,6 +72,16 @@ export function Sheet() {
     setEmployeeIndexToDelete(null);
   };
 
+  const moveEmployee = (currentIndex: number, targetIndex: number) => {
+     setEmployees((prev) => {
+      const updatedEmployees = [...prev];
+      updatedEmployees.splice(currentIndex, 1);
+      updatedEmployees.splice(targetIndex, 0, prev[currentIndex]);
+
+      return updatedEmployees;
+    });
+  };
+
   return (
     <div className={styles['sheet']}>
       <nav>
@@ -89,8 +99,9 @@ export function Sheet() {
         <Table
           employees={employees}
           onAdd={addEmployee}
-          onDelete={confirmDeleteEmployee}
           onChange={handleChange}
+          onDelete={confirmDeleteEmployee}
+          onDrag={moveEmployee}
         />
       </main>
 

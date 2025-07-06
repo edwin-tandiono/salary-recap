@@ -112,14 +112,14 @@ export default function Input({
   return (
     <>
       <input
-        autoComplete="off"
         ref={inputRef}
+        autoComplete="off"
         data-indexed-input-col={col}
         data-indexed-input-row={row}
         name={name}
+        onBlur={() => setIsFocused(false)}
         onChange={handleChange}
         onFocus={handleFocus}
-        onBlur={() => setIsFocused(false)}
         onKeyDown={handleKeydown}
         type="text"
         value={isFocused ? localValue : displayedValue}

@@ -34,6 +34,9 @@ export default defineConfig([
       quotes: ['error', 'single'],
       'semi': 'error',
       'react/react-in-jsx-scope': 'off',
+      'react/jsx-sort-props': ['error', {
+        reservedFirst: ['key', 'ref'],
+      }],
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
       'react/no-unknown-property': ['error', { ignore: ['closedBy'] }],
       'import-x/order': [

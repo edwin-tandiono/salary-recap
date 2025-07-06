@@ -38,11 +38,15 @@ export default function Row({
   row,
   onChange,
   onDelete,
+  onDragStart,
+  onDragOver,
 }: {
   employee: Employee,
   row: number,
   onChange: CustomChangeEventHandler,
   onDelete: (number) => void,
+  onDragStart: (number) => void,
+  onDragOver: (number) => void,
 }) {
   const {
     name,
@@ -145,7 +149,13 @@ export default function Row({
   };
 
   return (
-    <tr className={styles['selectable']} ref={rowRef}>
+    <tr
+      ref={rowRef}
+      className={styles['selectable']}
+      draggable
+      onDragOver={() => onDragOver(row)}
+      onDragStart={() => onDragStart(row)}
+    >
       <td className={styles['number-cell']}>
         <div className={styles['action-wrapper']}>
           <Button

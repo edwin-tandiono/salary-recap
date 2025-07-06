@@ -1,4 +1,5 @@
 import sumBy from 'lodash/sumBy';
+import { useRef } from 'react';
 
 import Button from 'web/components/common/button';
 import Justify from 'web/components/common/justify';
@@ -17,12 +18,27 @@ export default function Table({
   onAdd,
   onDelete,
   onChange,
+  onDrag,
 }: {
   employees: Array<Employee>,
   onAdd: () => void,
   onDelete: (number) => void,
   onChange: CustomChangeEventHandler,
+  onDrag: (currentIndex: number, targetIndex: number) => void,
 }) {
+  const currentMoveIndex = useRef<number|null>(null);
+
+  const handleDragStart = (index: number) => {
+    currentMoveIndex.current = index;
+  };
+
+  const handleDragOver = (index:number) => {
+    if (currentMoveIndex.current !== index) {
+      onDrag(currentMoveIndex.current, index);
+      currentMoveIndex.current = index;
+    }
+  };
+
   return (
     <table className={styles['table']}>
       <thead>
@@ -53,6 +69,8 @@ export default function Table({
             employee={employee}
             onChange={onChange}
             onDelete={onDelete}
+            onDragOver={handleDragOver}
+            onDragStart={handleDragStart}
             row={row}
           />
         ))}
