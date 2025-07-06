@@ -20,14 +20,14 @@ export function Sheet() {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    { name, row, value }: ChangeEventAdditionalData & { row: number },
+    { index, name, value }: ChangeEventAdditionalData & { index: number },
   ) => {
     setEmployees((prev) => {
       const updatedEmployees = [...prev];
 
-      updatedEmployees[row] = {
-        ...updatedEmployees[row],
-        [name]: isNumber(updatedEmployees[row][name])
+      updatedEmployees[index] = {
+        ...updatedEmployees[index],
+        [name]: isNumber(updatedEmployees[index][name])
           ? Number(value)
           : value,
       };

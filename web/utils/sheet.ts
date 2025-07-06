@@ -31,6 +31,8 @@ export const moveToTargetField = (col: number, row: number) => {
     `[data-indexed-input-col="${col}"][data-indexed-input-row="${row}"]`,
   );
 
+  console.log('===', col, row, targetField);
+
   if (targetField) {
     targetField.focus();
     targetField.select();

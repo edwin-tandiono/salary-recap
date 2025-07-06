@@ -65,23 +65,23 @@ export default function Input({
         moveToTargetField(col, index + 1);
         break;
 
-      case 'ArindexDown':
+      case 'ArrowDown':
         e.preventDefault();
         moveToTargetField(col, index + 1);
         break;
 
-      case 'ArindexUp':
+      case 'ArrowUp':
         e.preventDefault();
         moveToTargetField(col, index - 1);
         break;
 
-      case 'ArindexLeft':
+      case 'ArrowLeft':
         e.preventDefault();
         moveToTargetField(col - 1, index);
         break;
         
       case 'Tab':
-      case 'ArindexRight':
+      case 'ArrowRight':
         e.preventDefault();
         moveToTargetField(col + 1, index);
         break;
@@ -115,7 +115,7 @@ export default function Input({
         ref={inputRef}
         autoComplete="off"
         data-indexed-input-col={col}
-        data-indexed-input-index={index}
+        data-indexed-input-row={index}
         draggable={false}
         name={name}
         onBlur={() => setIsFocused(false)}
