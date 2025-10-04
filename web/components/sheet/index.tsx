@@ -1,21 +1,35 @@
 import debounce from 'lodash/debounce';
 import isNumber from 'lodash/isNumber';
-import { useCallback, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'web/components/common/button';
-import { DEMO_EMPLOYEES } from 'web/constants/demo';
+import NavButton from 'web/components/common/nav-button';
+import Navbar from 'web/components/common/navbar';
 import { moveToTargetField } from 'web/utils/sheet';
+import {
+  saveTitle,
+  loadTitle,
+  saveEmployees,
+  loadEmployees,
+} from 'web/utils/storage';
 
 import styles from './Sheet.module.scss';
 import Table from './table';
 
 import type { ChangeEventAdditionalData } from 'web/interfaces/form.interface';
 
-export function Sheet() {
+export default function Sheet() {
+  const navigate = useNavigate();
   const deleteDialogRef = useRef<HTMLDialogElement>(null);
 
-  const [title, setTitle] = useState('JUNI 2025');
-  const [employees, setEmployees] = useState(DEMO_EMPLOYEES);
+  const [title, setTitle] = useState('');
+  const [employees, setEmployees] = useState([]);
   const [employeeIndexToDelete, setEmployeeIndexToDelete] = useState<number|null>();
 
   const handleChange = (
@@ -83,9 +97,15 @@ export function Sheet() {
     });
   }, 200), []);
 
+  // On mount
+  useEffect(() => {
+    setTitle(loadTitle({ fallback: true }));
+    setEmployees(loadEmployees({ fallback: true }));
+  }, []);
+
   return (
     <div className={styles['sheet']}>
-      <nav>
+      <Navbar>
         <div className={styles['title']}>
           Rekap Gaji Bulan:
           &nbsp;&nbsp;
@@ -94,7 +114,16 @@ export function Sheet() {
             value={title}
           />
         </div>
-      </nav>
+        <NavButton
+          onClick={() => {
+            saveTitle(title);
+            saveEmployees(employees);
+            navigate('/slip');
+          }}
+        >
+          LANJUT KE SLIP &nbsp;&nbsp;&rarr;
+        </NavButton>
+      </Navbar>
 
       <main>
         <Table

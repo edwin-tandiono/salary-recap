@@ -1,0 +1,47 @@
+@use '../../styles/variables';
+
+.container {
+  background: variables.$grey-30;
+  padding: 10px;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.slip {
+  background: variables.$white;
+  padding: 20px 10vw;
+
+  &__name {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  &__calculation {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0 20px;
+    margin-left: 20px;
+
+    &__row {
+      display: contents;
+
+      *:nth-child(2) {
+        display: inline-flex;
+        justify-content: space-between;
+        text-align: right;
+
+        &:before {
+          content: ':\00a0';
+        }
+      }
+
+      *:last-child {
+        text-align: right;
+      }
+    }
+  }
+}

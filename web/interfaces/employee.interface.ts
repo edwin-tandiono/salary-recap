@@ -11,4 +11,5 @@ export interface Employee {
   bonusAttendance: number,
   bonusTransport: number,
   bonus: number,
+  note?: string,
 };

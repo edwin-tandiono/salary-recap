@@ -8,21 +8,11 @@
   position: relative;
 
   nav {
-    align-items: center;
-    background: variables.$green-50;
-    box-sizing: border-box;
-    color: variables.$white;
-    display: flex;
-    height: 40px;
-    padding: 10px;
-    position: sticky;
-    top: 0;
-
     .title {
       align-items: center;
       display: flex;
       font-weight: 300;
-      margin: 0;
+      margin: 0 10px;
 
       input {
         background: none;
@@ -97,6 +87,7 @@
     position: sticky;
     text-transform: uppercase;
     top:0;
+    z-index: 1;
 
     tr {
       td {
@@ -125,6 +116,8 @@
 
   tbody {
     tr {
+      height: 2rem;
+
       &.selectable:hover,
       &:has(input:focus) {
         td {
@@ -192,20 +185,24 @@
           border-right: 0;
         }
 
-        &:has(input) {
+        &:not(:has(input)) {
           background: variables.$grey-10;
         }
 
         &.number-cell {
+          height: 100%;
           max-width: 2rem;
           min-width: 1rem;
           padding: 0;
           position: relative;
 
           .number {
+            align-items: center;
             background: variables.$white;
+            display: flex;
             height: 100%;
             left: 0;
+            justify-content: center;
             pointer-events: none;
             position: absolute;
             top: 0;
@@ -233,6 +230,10 @@
                   fill: variables.$white;
                 }
               }
+            }
+
+            &__delete {
+              background: variables.$red-50 !important;
             }
           }
         }

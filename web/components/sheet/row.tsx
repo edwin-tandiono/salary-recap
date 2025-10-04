@@ -186,6 +186,7 @@ export default function indexindex({
       <td className={styles['number-cell']}>
         <div className={styles['action-wrapper']}>
           <Button
+            className={styles['action-wrapper__delete']}
             onClick={() => onDelete(index)}
             title="Klik untuk hapus"
             type="button"

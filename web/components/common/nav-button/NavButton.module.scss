@@ -1,0 +1,21 @@
+@use '../../../styles/variables';
+
+.nav-button {
+  align-items: center;
+  border: 0;
+  background: variables.$green-70;
+  box-sizing: border-box;
+  color: variables.$white;
+  cursor: pointer;
+  display: flex;
+  font-weight: bold;
+  height: 100%;
+  justify-content: center;
+  min-width: 20vw;
+  padding: 5px;
+  text-decoration: none;
+
+   &:hover {
+    filter: brightness(120%);
+  }
+}

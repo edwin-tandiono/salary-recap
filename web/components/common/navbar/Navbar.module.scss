@@ -1,0 +1,14 @@
+@use '../../../styles/variables';
+
+.navbar {
+  align-items: center;
+  background: variables.$green-50;
+  box-sizing: border-box;
+  color: variables.$white;
+  display: flex;
+  flex-shrink: 0;
+  height: 60px;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
